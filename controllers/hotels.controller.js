@@ -1,5 +1,5 @@
 import Hotel from "../models/hotel.schema.js";
-import { customError } from "../utils/customError.js";
+// import { customError } from "../utils/customError.js";
 
 export const createHotel = async (req, res, next) => {
   const newHotel = new Hotel(req.body);
