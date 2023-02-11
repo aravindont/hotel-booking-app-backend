@@ -6,14 +6,15 @@ import {
   getSingleHotel,
   updateHotel,
 } from "../controllers/hotels.controller.js";
+import { verifyAdmin } from "../middlewares/auth.middleware.js";
 const router = express.Router();
 
 // CREATE
-router.post("/create", createHotel);
+router.post("/create", verifyAdmin, createHotel);
 // UPDATE
-router.put("/update/:hotelId", updateHotel);
+router.put("/update/:hotelId", verifyAdmin, updateHotel);
 // DELETE
-router.delete("/remove/:hotelId", deleteHotel);
+router.delete("/remove/:hotelId", verifyAdmin, deleteHotel);
 // GET
 router.get("/get/:hotelId", getSingleHotel);
 // GET ALL
