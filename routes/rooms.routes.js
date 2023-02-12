@@ -15,9 +15,9 @@ router.post("/create/:hotelId", verifyAdmin, createRoom);
 // UPDATE
 router.put("/update/:roomId", verifyAdmin, updateRoom);
 // DELETE
-router.delete("/remove/:hotelId", verifyAdmin, deleteRoom);
+router.delete("/remove/:roomId/:hotelId", verifyAdmin, deleteRoom);
 // GET
 router.get("/get/:roomId", getSingleRoom);
 // GET ALL
-router.get("/get-all-rooms", getAllRooms);
+router.get("/getAllRooms", getAllRooms);
 export default router;

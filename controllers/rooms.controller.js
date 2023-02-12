@@ -1,11 +1,9 @@
 import Room from "../models/room.schema.js";
-import Hotel from "../models/room.schema.js";
-import { customError } from "../utils/customError.js";
+import Hotel from "../models/hotel.schema.js";
 
 export const createRoom = async (req, res, next) => {
   const hotelId = req.params.hotelId;
   const newRoom = new Room(req.body);
-
   try {
     const savedRoom = await newRoom.save();
     try {
@@ -38,11 +36,13 @@ export const updateRoom = async (req, res, next) => {
 
 export const deleteRoom = async (req, res, next) => {
   const hotelId = req.params.hotelId;
+  const roomId = req.params.roomId;
   try {
-    await Room.findByIdAndDelete(req.params.roomId);
+    console.log("in ");
+    await Room.findByIdAndDelete(roomId);
     try {
       await Hotel.findByIdAndUpdate(hotelId, {
-        $pull: { rooms: req.params.roomId },
+        $pull: { rooms: roomId },
       });
       res.status(200).json("Room has been deleted.");
     } catch (err) {
