@@ -1,4 +1,5 @@
 import Hotel from "../models/hotel.schema.js";
+import Room from "../models/room.schema.js";
 // import { customError } from "../utils/customError.js";
 
 export const createHotel = async (req, res, next) => {
@@ -49,8 +50,8 @@ export const getAllHotels = async (req, res, next) => {
   try {
     const hotels = await Hotel.find({
       ...others,
-      cheapestPrice: { $gt: min || 1, $lt: max || 999 },
-    }).limit(req.query.limit);
+      cheapestPrice: { $gt: min | 1, $lt: max || 999 },
+    }).limit(4);
     res.status(200).json(hotels);
   } catch (err) {
     next(err);
@@ -95,9 +96,7 @@ export const getHotelRooms = async (req, res, next) => {
     const hotel = await Hotel.findById(req.params.hotelId);
     const list = await Promise.all(
       hotel.rooms.map((room) => {
-        hotel.rooms.map((room) => {
-          return room.findById(room);
-        });
+        return Room.findById(room);
       })
     );
     res.status(200).json(list);
