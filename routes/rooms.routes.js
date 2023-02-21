@@ -5,8 +5,9 @@ import {
   getAllRooms,
   getSingleRoom,
   updateRoom,
+  updateRoomAvailability,
 } from "../controllers/rooms.controller.js";
-import { verifyAdmin } from "../middlewares/auth.middleware.js";
+import { verifyAdmin, verifyUser } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
@@ -16,8 +17,11 @@ router.post("/create/:hotelId", verifyAdmin, createRoom);
 router.put("/update/:roomId", verifyAdmin, updateRoom);
 // DELETE
 router.delete("/remove/:roomId/:hotelId", verifyAdmin, deleteRoom);
+
 // GET
-router.get("/get/:roomId", getSingleRoom);
+router.get("/get/:roomId", verifyUser, getSingleRoom);
 // GET ALL
-router.get("/getAllRooms", getAllRooms);
+router.get("/getAllRooms", verifyUser, getAllRooms);
+
+router.put("/availability/:roomNumberId", verifyUser, updateRoomAvailability);
 export default router;
