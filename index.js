@@ -1,14 +1,12 @@
 import express from "express";
+import envConfig from "./config/env.config.js";
 import { connectToDB } from "./config/db.connect.js";
 connectToDB()
   .then(() => {
-    console.log("connected");
+    console.log("connected to database");
   })
   .catch((err) => console.log(err.message));
 
-import cors from "cors";
-import envConfig from "./config/env.config.js";
-import cookieParser from "cookie-parser";
 // Routes imported
 import authRoute from "./routes/auth.routes.js";
 import hotelsRoute from "./routes/hotels.routes.js";
@@ -22,6 +20,8 @@ const version = "v1";
 /**
  * middlewares
  */
+import cors from "cors";
+import cookieParser from "cookie-parser";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
