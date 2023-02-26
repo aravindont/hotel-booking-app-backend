@@ -1,6 +1,32 @@
 import express from "express";
-import { connectToDB } from "./config/db.connect.js";
-connectToDB();
+// import { connectToDB } from "./config/db.connect.js";
+// connectToDB();
+import mongoose from "mongoose";
+mongoose.set("strictQuery", false);
+// mongoose.set("bufferCommands", false);
+// export const connectToDB = async () => {
+//   try {
+//     const conn = await mongoose.connect(process.env.MONGO_URL);
+
+//     console.log(`connected to ${conn.connection.name}`);
+//   } catch (err) {
+//     console.log(err.message);
+//   }
+// };
+
+const connectDb = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URL);
+
+    console.info(`Connected to database on ${conn.connection.name}`);
+  } catch (error) {
+    console.error(
+      `Connection error: ${error.stack} on Worker process: ${process.pid}`
+    );
+    process.exit(1);
+  }
+};
+connectDb();
 import cors from "cors";
 import envConfig from "./config/env.config.js";
 import cookieParser from "cookie-parser";
