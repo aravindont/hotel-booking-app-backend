@@ -1,11 +1,7 @@
 import express from "express";
 import envConfig from "./config/env.config.js";
 import { connectToDB } from "./config/db.connect.js";
-connectToDB()
-  .then(() => {
-    console.log("connected to database");
-  })
-  .catch((err) => console.log(err.message));
+connectToDB();
 
 // Routes imported
 import authRoute from "./routes/auth.routes.js";
