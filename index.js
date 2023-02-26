@@ -24,7 +24,9 @@ app.use(`/api/${version}/auth`, authRoute);
 app.use(`/api/${version}/users`, usersRoute);
 app.use(`/api/${version}/hotels`, hotelsRoute);
 app.use(`/api/${version}/rooms`, roomsRoute);
-
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Namaste" });
+});
 app.use((err, req, res, next) => {
   const errorStatus = err.status || 500;
   const errorMessage = err.message || "Something went wrong";
