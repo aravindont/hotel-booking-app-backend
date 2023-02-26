@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 mongoose.set("strictQuery", false);
+mongoose.set("bufferCommands", false);
 export const connectToDB = async () => {
   try {
     const conn = await mongoose.connect(process.env.MONGO_URL);
