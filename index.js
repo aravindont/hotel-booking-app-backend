@@ -1,6 +1,7 @@
 import express from "express";
-import cors from "cors";
 import { connectToDB } from "./config/db.connect.js";
+connectToDB();
+import cors from "cors";
 import envConfig from "./config/env.config.js";
 import cookieParser from "cookie-parser";
 // Routes imported
@@ -10,7 +11,7 @@ import roomsRoute from "./routes/rooms.routes.js";
 import usersRoute from "./routes/users.routes.js";
 
 const app = express();
-connectToDB();
+
 const version = "v1";
 
 /**
