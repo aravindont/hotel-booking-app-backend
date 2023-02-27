@@ -9,6 +9,7 @@ export const verifyToken = (req, res, next) => {
   }
   jwt.verify(token, envConfig.JWT_SECRET, (err, user) => {
     if (err) return next(customError(403, "Token is not valid!"));
+    console.log(req.user);
     req.user = user;
     next();
   });
@@ -24,15 +25,6 @@ export const verifyUser = (req, res, next) => {
   });
 };
 
-// export const verifyAdmin = (req, res, next) => {
-//   verifyToken(req, res, () => {
-//     if (req.user.isAdmin) {
-//       next();
-//     } else {
-//       return next(customError(403, "You are not authorized!"));
-//     }
-//   });
-// };
 export const verifyAdmin = (req, res, next) => {
   verifyToken(req, res, () => {
     if (!req.user) {
