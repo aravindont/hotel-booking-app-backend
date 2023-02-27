@@ -1,7 +1,6 @@
 import express from "express";
 import envConfig from "./config/env.config.js";
-import { connectToDB } from "./config/db.connect.js";
-connectToDB();
+import { connectDB } from "./config/db.connect.js";
 
 // Routes imported
 import authRoute from "./routes/auth.routes.js";
@@ -39,6 +38,9 @@ app.use((err, req, res, next) => {
     stack: err.stack,
   });
 });
-app.listen(envConfig.PORT, () => {
-  console.log(`server started on http://localhost:${envConfig.PORT}`);
+
+connectDB().then(() => {
+  app.listen(envConfig.PORT, () => {
+    console.log("listening for requests");
+  });
 });
