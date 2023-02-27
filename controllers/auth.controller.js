@@ -35,10 +35,13 @@ export const login = async (req, res, next) => {
       envConfig.JWT_SECRET
     );
     const { password, isAdmin, ...otherDetails } = user._doc;
-    res
-      .cookie("access_token", token, { httpOnly: true })
-      .status(200)
-      .json({ details: { ...otherDetails }, isAdmin });
+
+    res.cookie("access_token", token, {
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+      httpOnly: true,
+    });
+
+    res.status(200).json({ details: { ...otherDetails }, isAdmin });
   } catch (err) {
     next(err);
   }
