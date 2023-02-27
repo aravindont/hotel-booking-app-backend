@@ -7,7 +7,10 @@ import authRoute from "./routes/auth.routes.js";
 import hotelsRoute from "./routes/hotels.routes.js";
 import roomsRoute from "./routes/rooms.routes.js";
 import usersRoute from "./routes/users.routes.js";
-
+const corsOptions = {
+  origin: true,
+  credentials: true,
+};
 const app = express();
 
 const version = "v1";
@@ -19,7 +22,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(`/api/${version}/auth`, authRoute);
 app.use(`/api/${version}/users`, usersRoute);
